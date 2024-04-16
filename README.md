@@ -1,5 +1,7 @@
 Welcome to my MDM Project 2
 
+Accessible in Web: http://localhost:8080/
+
 Data used from: https://www.kaggle.com/datasets/vinicius150987/titanic3
 
 Data Explanation: 

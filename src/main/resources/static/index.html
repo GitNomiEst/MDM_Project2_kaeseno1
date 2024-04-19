@@ -8,26 +8,28 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <!-- My stylesheet -->
     <link rel="stylesheet" href="styles.css">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/jpg" href="templates/titanic.jpg">
+    <link rel="icon" href="resources/templates/titanic.jpg">
+
 
 </head>
 
 <body>
-        <div class="container-fluid">
-            <h1 class="title">MDM - Python Project 2 - kaeseno1</h1>
-        </div>    
+    <div class="container-fluid">
+        <h1 class="title">MDM - Python Project 2 - kaeseno1</h1>
+    </div>
     <header>
         <br>
         <h1>Titanic prediction</h1>
         <p>Ever wondered if you would have made it off the Titanic alive? <br>
             The algorithm analyzes various factors to determine your likelihood of surviving the Titanic disaster. <br>
-            Are you ready to discover if you would have been one of the fortunate few to escape the icy depths of the Atlantic? Find out now!</p>
+            Are you ready to discover if you would have been one of the fortunate few to escape the icy depths of the
+            Atlantic? Find out now!</p>
         <br>
     </header>
     <main>
@@ -38,22 +40,22 @@
                 <option value="male">Male</option>
                 <option value="female">Female</option>
             </select><br><br>
-            
+
             <label for="age">Age:</label>
             <input type="number" name="age" id="age" required><br><br>
-            
+
             <label for="class">Passenger Class:</label>
             <select name="class" id="class">
                 <option value="1st">1st Class</option>
                 <option value="2nd">2nd Class</option>
                 <option value="3rd">3rd Class</option>
             </select><br><br>
-            
+
             <input type="submit" value="Submit">
         </form>
     </main>
     <footer>
-        <p class="footer">&copy; 2024 Noémie Käser  </p>
+        <p class="footer">&copy; 2024 Noémie Käser </p>
     </footer>
 </body>
 <script>

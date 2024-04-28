@@ -14,6 +14,8 @@ import ai.djl.training.evaluator.Accuracy;
 import ai.djl.training.listener.TrainingListener;
 import ai.djl.training.loss.Loss;
 import ai.djl.translate.TranslateException;
+import ch.zhaw.nk.mdm_project2_kaeseno1.ml.SurvivalModels;
+
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -49,7 +51,7 @@ public class SurvivalTraining {
         
 
         
-        Trainer trainer;
+        Trainer trainer = null;
         // Initialize trainer with proper input shape
         try  {
             trainer = model.newTrainer(config);
@@ -57,8 +59,8 @@ public class SurvivalTraining {
 
             // Train the model
             EasyTrain.fit(trainer, EPOCHS, datasets[0], datasets[1]);
-        }catch(Exception e){
-            
+        } catch(Exception e){
+            e.printStackTrace();
         }
 
         // Save the trained model
@@ -70,7 +72,7 @@ public class SurvivalTraining {
         model.setProperty("Epoch", String.valueOf(EPOCHS));
         model.setProperty("Accuracy", String.format("%.5f", result.getValidateEvaluation("Accuracy")));
         model.setProperty("Loss", String.format("%.5f", result.getValidateLoss()));
-        SurvivalModels.saveSynset(modelDir, dataset.getSynset());
+        //SurvivalModels.saveSynset(modelDir, dataset.getSynset());
     }
 
     private TrainingConfig setupTrainingConfig(Loss loss) {
@@ -86,6 +88,7 @@ public class SurvivalTraining {
 
     private Shape getSampleShape(CsvDataset dataset) {
         // Get the shape of the input sample
-        return dataset.getSample(0).getInput().getShape();
+        int numFeatures = dataset.getFeatures().size();
+        return new Shape(1, numFeatures);
     }
 }

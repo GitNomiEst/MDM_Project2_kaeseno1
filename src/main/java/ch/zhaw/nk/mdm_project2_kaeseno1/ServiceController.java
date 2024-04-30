@@ -17,6 +17,7 @@ public class ServiceController {
         ArrayList<Guest> guests = new ArrayList<>();
         guests = dataAccessor.getAllEntries();
         return guests;
+
     }
 
     

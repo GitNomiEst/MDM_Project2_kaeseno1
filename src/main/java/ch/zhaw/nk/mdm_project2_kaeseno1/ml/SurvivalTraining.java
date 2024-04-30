@@ -8,14 +8,11 @@ import ai.djl.training.EasyTrain;
 import ai.djl.training.Trainer;
 import ai.djl.training.TrainingConfig;
 import ai.djl.training.TrainingResult;
-import ai.djl.training.dataset.Batch;
 import ai.djl.training.dataset.RandomAccessDataset;
 import ai.djl.training.evaluator.Accuracy;
 import ai.djl.training.listener.TrainingListener;
 import ai.djl.training.loss.Loss;
 import ai.djl.translate.TranslateException;
-import ch.zhaw.nk.mdm_project2_kaeseno1.ml.SurvivalModels;
-
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -44,7 +41,7 @@ public class SurvivalTraining {
         TrainingConfig config = setupTrainingConfig(loss);
 
         // Initialize model
-        Model model = getModel();
+        Model model = SurvivalModels.getModel();
         model.getBlock().clear(); // Clear existing blocks
 
         //Trainer trainer;
@@ -79,11 +76,6 @@ public class SurvivalTraining {
         return new DefaultTrainingConfig(loss)
                 .addEvaluator(new Accuracy())
                 .addTrainingListeners(TrainingListener.Defaults.logging());
-    }
-
-    private Model getModel() {
-        // Implement your model creation logic here
-        return null;
     }
 
     private Shape getSampleShape(CsvDataset dataset) {

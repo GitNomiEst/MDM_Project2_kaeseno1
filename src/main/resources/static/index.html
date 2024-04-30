@@ -53,6 +53,12 @@
 
             <input type="submit" value="Submit">
         </form>
+
+        <div id="answerPart" style="display: none;">
+            <p><b>Answer:</b>
+            <div id="answer"></div>
+            </p>
+        </div>
     </main>
     <footer>
         <p class="footer">&copy; 2024 Noémie Käser </p>
@@ -73,6 +79,31 @@
 
     // Call fetchAndDisplayGuests function when the page loads
     document.addEventListener('DOMContentLoaded', fetchAndDisplayGuests);
+
+    async function submitForm(event) {
+            event.preventDefault();
+            const form = document.getElementById('predictionForm');
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    const prediction = await response.text();
+                    const answerDiv = document.getElementById('answer');
+                    answerDiv.innerText = prediction;
+                    document.getElementById('answerPart').style.display = 'block';
+                } else {
+                    throw new Error('Prediction failed');
+                }
+            } catch (error) {
+                console.error('Error predicting survival:', error);
+            }
+        }
+    
 </script>
 
 </html>

@@ -1,0 +1,14 @@
+version: '3.3'
+
+services:
+   web-service:
+     depends_on:
+       - model-service
+     image: doknomi/titanic:latest
+     ports:
+       - "80:8082"
+     restart: always
+
+   model-service:
+     image: doknomi/titanic:latest
+     restart: always

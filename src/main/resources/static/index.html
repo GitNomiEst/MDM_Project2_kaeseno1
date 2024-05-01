@@ -34,7 +34,7 @@
     </header>
     <main>
         <h2>Please enter below the Passengers Data.</h2>
-        <form action="submit_info.php" method="POST">
+        <form action="/predict" method="POST" id="predictionForm" onsubmit="submitForm(event)">
             <label for="sex">Sex:</label>
             <select name="sex" id="sex">
                 <option value="male">Male</option>
@@ -52,12 +52,11 @@
             </select><br><br>
 
             <input type="submit" value="Submit">
-        </form>
 
-        <div id="answerPart" style="display: none;">
-            <p><b>Answer:</b>
-            <div id="answer"></div>
-            </p>
+        </form>
+        <br>
+        <div id="predictionResult" style="display: none;">
+            <p><b>Prediction Result:</b> <span id="predictionText"></span></p>
         </div>
     </main>
     <footer>
@@ -65,45 +64,29 @@
     </footer>
 </body>
 <script>
-    async function fetchAndDisplayGuests() {
+    async function submitForm(event) {
+        event.preventDefault();
+        const form = document.getElementById('predictionForm');
+        const formData = new FormData(form);
+
         try {
-            const response = await fetch('/guests'); // Fetch /guests endpoint
-            const data = await response.json(); // Extract JSON data from response
-            const guestsContentDiv = document.getElementById('guestsContent');
-            // Update content of guestsContentDiv with fetched data
-            console.log(response)
+            const response = await fetch('/predict', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                const prediction = await response.text();
+                const predictionText = document.getElementById('predictionText');
+                predictionText.innerText = prediction;
+                document.getElementById('predictionResult').style.display = 'block';
+            } else {
+                throw new Error('Prediction failed');
+            }
         } catch (error) {
-            console.error('Error fetching /guests:', error);
+            console.error('Error predicting survival:', error);
         }
     }
-
-    // Call fetchAndDisplayGuests function when the page loads
-    document.addEventListener('DOMContentLoaded', fetchAndDisplayGuests);
-
-    async function submitForm(event) {
-            event.preventDefault();
-            const form = document.getElementById('predictionForm');
-            const formData = new FormData(form);
-
-            try {
-                const response = await fetch('/predict', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                if (response.ok) {
-                    const prediction = await response.text();
-                    const answerDiv = document.getElementById('answer');
-                    answerDiv.innerText = prediction;
-                    document.getElementById('answerPart').style.display = 'block';
-                } else {
-                    throw new Error('Prediction failed');
-                }
-            } catch (error) {
-                console.error('Error predicting survival:', error);
-            }
-        }
-    
 </script>
 
 </html>

@@ -16,27 +16,32 @@ public class DataAccessor {
         String line = "";
         String splitBy = ";";
         try {
-            // parsing a CSV file into BufferedReader class constructor
-            BufferedReader br = new BufferedReader(new FileReader("data/titanic3.CSV"));
-            while ((line = br.readLine()) != null) // returns a Boolean value
-            {
-                if (!firstLineSkipped) {
-                    firstLineSkipped = true;
-                    continue; // Skip processing the first line
-                }
+            try (// parsing a CSV file into BufferedReader class constructor
+            BufferedReader br = new BufferedReader(new FileReader("data/titanic3.CSV"))) {
+                while ((line = br.readLine()) != null) // returns a Boolean value
+                {
+                    if (!firstLineSkipped) {
+                        firstLineSkipped = true;
+                        continue; // Skip processing the first line
+                    }
 
-                Guest guest = new Guest();
-                String[] entry = line.split(splitBy); // use comma as separator
-                guest.setName(entry[2]);
-                guest.setSex(entry[3]);
-                boolean survived = entry[0].equals(1);
-                guest.setSurvived(survived);
-                guest.setPclass(Integer.parseInt(entry[0]));
-                guests.add(guest);
+                    Guest guest = new Guest();
+                    String[] entry = line.split(splitBy); // use comma as separator
+                    guest.setName(entry[2]);
+                    guest.setSex(entry[3]);
+                    boolean survived = entry[0].equals(1);
+                    guest.setSurvived(survived);
+                    guest.setPclass(Integer.parseInt(entry[0]));
+                    guests.add(guest);
+                }
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+        
         return guests;
+
     }
 }

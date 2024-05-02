@@ -16,17 +16,17 @@ public class DataAccessor {
         String line = "";
         String splitBy = ";";
         try {
-            try (// parsing a CSV file into BufferedReader class constructor
-            BufferedReader br = new BufferedReader(new FileReader("data/titanic3.CSV"))) {
-                while ((line = br.readLine()) != null) // returns a Boolean value
+            try (// parsing CSV file into BufferedReader class constructor
+            BufferedReader br = new BufferedReader(new FileReader("data/titanic3.csv"))) {
+                while ((line = br.readLine()) != null)
                 {
                     if (!firstLineSkipped) {
                         firstLineSkipped = true;
-                        continue; // Skip processing the first line
+                        continue;
                     }
 
                     Guest guest = new Guest();
-                    String[] entry = line.split(splitBy); // use comma as separator
+                    String[] entry = line.split(splitBy);
                     guest.setName(entry[2]);
                     guest.setSex(entry[3]);
                     boolean survived = entry[0].equals(1);

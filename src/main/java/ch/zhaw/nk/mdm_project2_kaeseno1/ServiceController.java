@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ServiceController {
 
     DataAccessor dataAccessor = new DataAccessor();
-    SurvivalAnalysis survivalInference = new SurvivalAnalysis(); // Instantiate SurvivalInference
+    SurvivalAnalysis survivalAnalysis = new SurvivalAnalysis();
 
     @GetMapping("/guests")
     public ArrayList<Guest> getIndex(){
@@ -29,7 +29,7 @@ public class ServiceController {
             @RequestParam("class") String passengerClass
     ) {
         // Call a method to predict survival based on the input data
-        String survivalResult = survivalInference.predictSurvival(sex, age, passengerClass);
+        String survivalResult = survivalAnalysis.predictSurvival(sex, age, passengerClass);
 
         // Return the prediction result as a String
         if (survivalResult == "Survived") {

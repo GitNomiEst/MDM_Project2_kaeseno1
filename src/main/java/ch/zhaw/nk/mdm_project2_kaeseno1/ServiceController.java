@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ch.zhaw.nk.mdm_project2_kaeseno1.ml.SurvivalAnalysis;
+import ch.zhaw.nk.mdm_project2_kaeseno1.ml.SurvivalPrediction;
 import ch.zhaw.nk.mdm_project2_kaeseno1.model.Guest;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ServiceController {
 
     DataAccessor dataAccessor = new DataAccessor();
-    SurvivalAnalysis survivalAnalysis = new SurvivalAnalysis();
+    SurvivalPrediction survivalPrediction = new SurvivalPrediction();
 
     @GetMapping("/guests")
     public ArrayList<Guest> getIndex(){
@@ -29,7 +29,7 @@ public class ServiceController {
             @RequestParam("class") String passengerClass
     ) {
         // Call a method to predict survival based on the input data
-        String survivalResult = survivalAnalysis.predictSurvival(sex, age, passengerClass);
+        String survivalResult = SurvivalPrediction.predict(sex, age, passengerClass);
 
         // Return the prediction result as a String
         if (survivalResult == "Survived") {

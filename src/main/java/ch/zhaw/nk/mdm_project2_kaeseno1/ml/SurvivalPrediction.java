@@ -100,14 +100,12 @@ public class SurvivalPrediction {
                 System.out.println("Total Epochs: " + epochs);
                 System.out.println("Mean Squared Error on Validation Set: " + mse);
 
-                model.save(Paths.get("model"), "survivalclassifier");
+                model.save(Paths.get("model"), "");
 
                 System.out.println("Model saved");
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             } catch (TranslateException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -128,8 +126,7 @@ public class SurvivalPrediction {
             try (Predictor<NDList, NDList> predictor = model.newPredictor(new NoopTranslator())) {
                 // Perform the prediction
                 NDList output = predictor.predict(input);
-                // Assuming the output NDList contains a single NDArray and we need the first
-                // float value
+                // Assuming the output NDList contains a single NDArray and we need the first float value
                 float prediction = output.singletonOrThrow().getFloat();
                 return ((double) prediction);
             }

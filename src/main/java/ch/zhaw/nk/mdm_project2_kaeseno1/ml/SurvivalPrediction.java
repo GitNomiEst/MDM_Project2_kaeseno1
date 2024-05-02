@@ -111,30 +111,37 @@ public class SurvivalPrediction {
         }
     }
 
-    public double predict(float[] features) {
+    public String predict(String sex, int age, String passengerClass, int sibsp, int parch) {
         if (model == null) {
             trainModel();
             // loadModel();
         }
         try (NDManager manager = NDManager.newBaseManager()) {
-            // Creating an NDList for input which contains a single NDArray with reshaped
-            // features
+            // Convert categorical features to numerical values
+            float sexValue = sex.equals("male") ? 0 : 1;
+            float classValue = passengerClass.equals("1st") ? 1 : passengerClass.equals("2nd") ? 2 : 3;
+    
+            // Create an array of features
+            float[] features = { sexValue, age, classValue, sibsp, parch };
+    
+            // Creating an NDList for input which contains a single NDArray with reshaped features
             NDList input = new NDList(manager.create(features).reshape(new Shape(1, features.length)));
-
-            // Using a try-with-resources statement to automatically close the predictor
-            // after usage
+    
+            // Using a try-with-resources statement to automatically close the predictor after usage
             try (Predictor<NDList, NDList> predictor = model.newPredictor(new NoopTranslator())) {
                 // Perform the prediction
                 NDList output = predictor.predict(input);
                 // Assuming the output NDList contains a single NDArray and we need the first float value
                 float prediction = output.singletonOrThrow().getFloat();
-                return ((double) prediction);
+    
+                // Return the prediction result as a String
+                return prediction >= 0.5 ? "Survived" : "Not Survived";
             }
         } catch (Exception e) {
             System.err.println("Error during prediction: " + e.getMessage());
             e.printStackTrace();
         }
-        return 0;
+        return null;
     }
 
     // Doesn't work

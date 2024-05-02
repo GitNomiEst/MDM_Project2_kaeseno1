@@ -61,10 +61,33 @@ public class SurvivalPrediction {
                 for (int i = 1; i < lines.size(); i++) {
                     String[] tokens = lines.get(i).split(",");
                     float[] row = new float[tokens.length];
-
-                    for (int j = 0; j < tokens.length; j++) {
-                        row[j] = Float.parseFloat(tokens[j]);
+            
+                    // Debugging:
+                    //System.out.println("Tokens: " + Arrays.toString(tokens));
+            
+                    // Parse and encode sex value
+                    float sexValue = -1; // Default value for unknown
+                    if (tokens[1].equals("male")) {
+                        sexValue = 0;
+                    } else if (tokens[1].equals("female")) {
+                        sexValue = 1;
+                    } else {
+                        // Handle unknown gender value here, e.g., log a warning or skip the record
+                        System.err.println("Unknown gender value: " + tokens[1]);
+                        continue; // Skip this record
                     }
+            
+                    // Encode sex as numerical value
+                    //float sexValue = tokens[1].equals("male") ? 0 : tokens[1].equals("female") ? 1 : -1; // Or handle the error case appropriately
+                    // Encode passenger class as numerical value
+                    float classValue = tokens[2].equals("1st") ? 1 : tokens[2].equals("2nd") ? 2 : 3;
+
+                    row[0] = sexValue;
+                    row[1] = Float.parseFloat(tokens[3]); // age
+                    row[2] = classValue;
+                    row[3] = Float.parseFloat(tokens[4]); // sibsp
+                    row[4] = Float.parseFloat(tokens[5]); // parch
+
 
                     // Extract features (all but last column)
                     features[i - 1] = Arrays.copyOf(row, row.length - 1);

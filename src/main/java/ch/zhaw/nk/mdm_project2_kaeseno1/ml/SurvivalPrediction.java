@@ -113,8 +113,10 @@ public class SurvivalPrediction {
                 EasyTrain.fit(trainer, numEpochs, datasets[0], datasets[1]);
 
                 TrainingResult result = trainer.getTrainingResult();
+                
                 model.setProperty("Epoch", String.valueOf(numEpochs));
                 model.setProperty("MSE", String.format("%.5f", result.getValidateLoss()));
+                //System.out.println(result.getEvaluations());
 
                 String epochs = model.getProperty("Epoch");
                 String mse = model.getProperty("MSE");
@@ -125,7 +127,7 @@ public class SurvivalPrediction {
 
                 model.save(Paths.get("model"), "");
 
-                System.out.println("Model saved");
+                System.out.println("Prediction completed");
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (TranslateException e) {
@@ -137,7 +139,7 @@ public class SurvivalPrediction {
     public String predict(String sex, int age, String passengerClass, int sibsp, int parch) {
         if (model == null) {
             trainModel();
-            // loadModel();
+            
         }
         try (NDManager manager = NDManager.newBaseManager()) {
             // Convert categorical features to numerical values

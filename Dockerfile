@@ -1,4 +1,4 @@
-FROM openjdk:17-jdk-slim
+FROM openjdk:19-jdk
 
 # Copy Files
 WORKDIR /usr/src/app
@@ -9,4 +9,4 @@ RUN ./mvnw -Dmaven.test.skip=true package
 
 # Docker Run Command
 EXPOSE 8080
-CMD ["java","-jar","/usr/src/target/titanic-0.0.1-SNAPSHOT.jar"]
+CMD ["java","-jar","/usr/src/app/target/mdm_project2_kaeseno1-0.0.1-SNAPSHOT.jar"]

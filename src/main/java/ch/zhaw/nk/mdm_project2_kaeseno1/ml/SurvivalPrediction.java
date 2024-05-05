@@ -19,7 +19,6 @@ import ai.djl.metric.Metrics;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
@@ -62,9 +61,6 @@ public class SurvivalPrediction {
                     String[] tokens = lines.get(i).split(",");
                     float[] row = new float[tokens.length];
             
-                    // Debugging:
-                    //System.out.println("Tokens: " + Arrays.toString(tokens));
-            
                     // Parse and encode sex value
                     float sexValue = -1; // Default value for unknown
                     if (tokens[1].equals("male")) {
@@ -77,8 +73,6 @@ public class SurvivalPrediction {
                         continue; // Skip this record
                     }
             
-                    // Encode sex as numerical value
-                    //float sexValue = tokens[1].equals("male") ? 0 : tokens[1].equals("female") ? 1 : -1; // Or handle the error case appropriately
                     // Encode passenger class as numerical value
                     float classValue = tokens[2].equals("1st") ? 1 : tokens[2].equals("2nd") ? 2 : 3;
 
@@ -168,21 +162,4 @@ public class SurvivalPrediction {
         }
         return null;
     }
-
-    // Doesn't work
-    public void loadModel() {
-        if (model == null) {
-            model = Model.newInstance("survivalclassifier");
-        }
-        try {
-            // Specify the model directory and the model name
-            Path modelDir = Paths.get("model");
-            model.load(modelDir, "survivalclassifier");
-            System.out.println("Model loaded.");
-        } catch (IOException | MalformedModelException e) {
-            System.err.println("Failed to load model: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
 }

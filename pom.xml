@@ -14,7 +14,7 @@
 	<name>mdm_project2_kaeseno1</name>
 	<description>MDM Project 2 - Titanic prediction</description>
 	<properties>
-		<java.version>21</java.version>
+		<java.version>11</java.version>
 	</properties>
 	<dependencies>
 

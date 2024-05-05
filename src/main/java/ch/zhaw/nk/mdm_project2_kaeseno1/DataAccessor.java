@@ -17,7 +17,7 @@ public class DataAccessor {
         String splitBy = ";";
         try {
             try (// parsing CSV file into BufferedReader class constructor
-            BufferedReader br = new BufferedReader(new FileReader("data/titanic3.csv"))) {
+            BufferedReader br = new BufferedReader(new FileReader("data/unprocesseddata.csv"))) {
                 while ((line = br.readLine()) != null)
                 {
                     if (!firstLineSkipped) {

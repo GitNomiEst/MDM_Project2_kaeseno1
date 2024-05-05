@@ -9,8 +9,3 @@ Survival: 1- Yes / 0- No
 Passenger Class (PC): 1- 1st, 2- 2nd, 3- 3rd
 Sibsp: No. of Siblings/ Spouses Aboard
 Parch: No. of Parents/ Childrens Aboard
-Ticket: Ticket-no.
-Fare: Passenger Fare
-Embarked: Port of Embarkation (C= Cherbourg, Q = Queenstown, S = Southampton)
-Boat: Lifeboat (if survived)
-Body: Body no (if not survived & body recovered)

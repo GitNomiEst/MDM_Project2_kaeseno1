@@ -11,6 +11,7 @@ import ai.djl.ndarray.NDManager;
 import ai.djl.ndarray.types.Shape;
 import ai.djl.training.dataset.ArrayDataset;
 import ai.djl.training.dataset.RandomAccessDataset;
+import ai.djl.training.evaluator.Accuracy;
 import ai.djl.training.listener.TrainingListener;
 import ai.djl.training.loss.Loss;
 import ai.djl.translate.NoopTranslator;
@@ -39,7 +40,8 @@ public class SurvivalPrediction {
         model.setBlock(block);
 
         DefaultTrainingConfig config = new DefaultTrainingConfig(Loss.l2Loss())
-                .addTrainingListeners(TrainingListener.Defaults.logging());
+                .addTrainingListeners(TrainingListener.Defaults.logging())
+                .addEvaluator(new Accuracy());
 
         Trainer trainer = model.newTrainer(config);
 

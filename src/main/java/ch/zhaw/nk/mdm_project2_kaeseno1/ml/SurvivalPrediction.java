@@ -48,7 +48,7 @@ public class SurvivalPrediction {
         trainer.setMetrics(new Metrics());
 
         int batchSize = 32;
-        int numEpochs = 30;
+        int numEpochs = 33;
 
         try (NDManager manager = NDManager.newBaseManager()) {
             List<String> lines;

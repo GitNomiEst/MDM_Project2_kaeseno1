@@ -30,7 +30,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_db5c80ecac1f4dab8b2ebd65864b9ef3 }}/doknomi/titanicprediction:${{ github.sha }}
+        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_db5c80ecac1f4dab8b2ebd65864b9ef3 }}/titanicprediction:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:

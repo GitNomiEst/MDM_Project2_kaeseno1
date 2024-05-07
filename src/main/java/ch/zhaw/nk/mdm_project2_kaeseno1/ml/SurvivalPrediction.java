@@ -11,7 +11,6 @@ import ai.djl.ndarray.NDManager;
 import ai.djl.ndarray.types.Shape;
 import ai.djl.training.dataset.ArrayDataset;
 import ai.djl.training.dataset.RandomAccessDataset;
-import ai.djl.training.evaluator.Accuracy;
 import ai.djl.training.listener.TrainingListener;
 import ai.djl.training.loss.Loss;
 import ai.djl.translate.NoopTranslator;
@@ -47,7 +46,7 @@ public class SurvivalPrediction {
         trainer.setMetrics(new Metrics());
 
         int batchSize = 32;
-        int numEpochs = 50;
+        int numEpochs = 30;
 
         try (NDManager manager = NDManager.newBaseManager()) {
             List<String> lines;
@@ -111,7 +110,6 @@ public class SurvivalPrediction {
                 model.setProperty("Epoch", String.valueOf(numEpochs));
                 model.setProperty("MSE", String.format("%.5f", result.getValidateLoss()));
                 model.setProperty("Accuracy", String.format("%.5f", result.getValidateEvaluation("Accuracy")));
-                //System.out.println(result.getEvaluations());
 
                 String epochs = model.getProperty("Epoch");
                 String mse = model.getProperty("MSE");
@@ -122,7 +120,7 @@ public class SurvivalPrediction {
                 System.out.println("Mean Squared Error on Validation Set: " + mse);
                 System.out.println("Accuracy: "+acc);
 
-                model.save(Paths.get("model"), "");
+                model.save(Paths.get("model"), "latestmodel");
 
                 System.out.println("Model saved & prediction completed");
             } catch (IOException e) {

@@ -4,6 +4,9 @@ FROM openjdk:19-jdk
 WORKDIR /usr/src/app
 COPY . .
 
+#Set executable permissions for mvnw
+RUN chmod +x mvnw
+
 # Install
 RUN ./mvnw -Dmaven.test.skip=true package
 

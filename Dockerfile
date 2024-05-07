@@ -6,6 +6,7 @@ COPY . .
 
 #Set executable permissions for mvnw
 RUN chmod +x mvnw
+RUN ls -l mvnw
 
 # Install
 RUN ./mvnw -Dmaven.test.skip=true package

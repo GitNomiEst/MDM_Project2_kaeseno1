@@ -10,3 +10,4 @@ public class MdmProject2Kaeseno1Application {
         SpringApplication.run(MdmProject2Kaeseno1Application.class, args);
     }
 }
+ 
